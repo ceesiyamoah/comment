@@ -2,7 +2,10 @@
 	display: flex;
 	background-color: white;
 	border-radius: 8px;
-	padding: 10px;
+	padding: 25px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	position: relative;
 	&__counter {
 		margin-right: 23px;
 	}
@@ -13,6 +16,12 @@
 			align-items: center;
 		}
 	}
+}
+
+.comment-after {
+	margin-left: 40px;
+	padding-left: 20px;
+	border-left: 5px solid #e9ebf0;
 }
 
 .counter {
@@ -31,12 +40,13 @@
 		cursor: pointer;
 
 		&-text {
-			width: 75px;
+			// width: 75px;
 			justify-content: space-between;
 			align-items: center;
 			font-family: 'Rubik', sans-serif;
 			display: flex;
 			& > span {
+				margin-left: 3px;
 				font-weight: 500;
 				color: #5357b6;
 				font-size: 16px;
@@ -80,13 +90,66 @@
 .left {
 	display: flex;
 	align-items: center;
+	width: 35%;
+	justify-content: space-between;
 }
 
 .right {
 	margin-left: auto;
+	display: flex;
 }
 
 .user {
 	width: 32px;
 	height: 32px;
+}
+
+.curUser {
+	background-color: #5357b6;
+	border-radius: 2px;
+	font-size: 13px;
+	padding: 2px 5px;
+	color: white;
+}
+
+.text {
+	border-radius: 8px;
+
+	border: 2px solid #e9ebf0;
+	flex: 1;
+	margin-left: 10px;
+	margin-right: 10px;
+	font-family: 'Rubik', sans-serif;
+	padding: 5px 15px;
+	padding-bottom: 64px;
+	line-height: 1.6;
+	font-size: 16px;
+	resize: none;
+	overflow: hidden;
+
+	&:active,
+	&:focus {
+		border: 2px solid #5357b6;
+		outline: none;
+	}
+}
+
+.flex {
+	display: flex;
+	align-items: flex-start;
+}
+
+.main_button {
+	padding: 17px 32px;
+	background-color: #5357b6;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	font-size: 16px;
+	cursor: pointer;
+
+	&:active {
+		background-color: #c5c6ef;
+		transition: all 0.3s;
+	}
 }
