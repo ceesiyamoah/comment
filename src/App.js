@@ -97,6 +97,56 @@ function App() {
 		setSelectedId(id);
 	};
 
+	const onReply = (id) => {
+		setSelectedId(id);
+		let toEdit = comments.find((comment) => comment.id === id);
+		console.log(toEdit);
+		let index = [];
+		if (toEdit) {
+			index.push(comments.findIndex((comment) => comment.id === id));
+		}
+
+		if (!toEdit) return;
+
+		const newComments = [...comments];
+		const newCom = {
+			id: new Date().getTime(),
+			content: '',
+			createdAt: '1 minute ago',
+			score: 0,
+			user: { ...currentUser },
+			replies: [],
+		};
+		console.log(index);
+		if (index.length === 1) {
+			newComments[index[0]].replies.unshift(newCom);
+		}
+		// else {
+		// 	newComments[index[0]].replies[index[1]].replies = [newCom];
+		// }
+		console.log(newComments[index[0]].replies);
+		setComments(newComments);
+	};
+
+	const onReplySubmit = (id, newContent) => {
+		console.log(selectedId, newContent);
+		let toEdit = comments.findIndex((comment) => comment.id === selectedId);
+		console.log(toEdit);
+		let index = [toEdit];
+		index.push(
+			comments[index[0]].replies.findIndex((comment) => comment.id === id)
+		);
+		if (toEdit === -1) return;
+		let newComments = [...comments];
+		console.log(index);
+		newComments[index[0]].replies[index[1]].content = newContent;
+		console.log(newComments[index[0]].replies[index[1]]);
+		setComments(newComments);
+		setSelectedId(null);
+	};
+
+	const onEdit = (id) => {};
+
 	const [modalContent] = useState(
 		<div>
 			<p className='header'>Delete Comment</p>
@@ -150,7 +200,10 @@ function App() {
 							onDelete={onDelete}
 							onIncrease={() => onChange(comment.id, false)}
 							onDecrease={() => onChange(comment.id, true)}
+							onReply={onReply}
 							id={comment.id}
+							onReplySubmit={onReplySubmit}
+							onEdit={onEdit}
 						/>
 						{comment.replies && (
 							<section className='comment-after'>
@@ -167,6 +220,9 @@ function App() {
 										onIncrease={() => onChange(reply.id, false)}
 										onDecrease={() => onChange(reply.id, true)}
 										id={reply.id}
+										onReply={onReply}
+										onReplySubmit={onReplySubmit}
+										onEdit={onEdit}
 									/>
 								))}
 							</section>
