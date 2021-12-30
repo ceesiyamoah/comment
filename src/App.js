@@ -63,14 +63,12 @@ function App() {
 			index.push(comments.findIndex((comment) => comment.id === selectedId));
 		} else {
 			comments.forEach((comment, i) => {
-				console.log(comment);
 				const ind = comment.replies.findIndex((item) => item.id === selectedId);
 				if (ind !== -1) {
 					index = [i, ind];
 				}
 			});
 		}
-		console.log(index);
 
 		let newComments = [...comments];
 		if (index.length === 1) {
@@ -85,7 +83,6 @@ function App() {
 					(item) => item.id !== selectedId
 				),
 			};
-			console.log(newComments[index[0]].replies);
 		}
 
 		setComments(newComments);
@@ -100,7 +97,7 @@ function App() {
 	const onReply = (id) => {
 		setSelectedId(id);
 		let toEdit = comments.find((comment) => comment.id === id);
-		console.log(toEdit);
+
 		let index = [];
 		if (toEdit) {
 			index.push(comments.findIndex((comment) => comment.id === id));
@@ -117,30 +114,29 @@ function App() {
 			user: { ...currentUser },
 			replies: [],
 		};
-		console.log(index);
+
 		if (index.length === 1) {
 			newComments[index[0]].replies.unshift(newCom);
 		}
 		// else {
 		// 	newComments[index[0]].replies[index[1]].replies = [newCom];
 		// }
-		console.log(newComments[index[0]].replies);
+
 		setComments(newComments);
 	};
 
 	const onReplySubmit = (id, newContent) => {
-		console.log(selectedId, newContent);
 		let toEdit = comments.findIndex((comment) => comment.id === selectedId);
-		console.log(toEdit);
+
 		let index = [toEdit];
 		index.push(
 			comments[index[0]].replies.findIndex((comment) => comment.id === id)
 		);
 		if (toEdit === -1) return;
 		let newComments = [...comments];
-		console.log(index);
+
 		newComments[index[0]].replies[index[1]].content = newContent;
-		console.log(newComments[index[0]].replies[index[1]]);
+
 		setComments(newComments);
 		setSelectedId(null);
 	};
